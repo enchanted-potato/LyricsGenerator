@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<link href="static/result.css" rel="stylesheet" type="text/css"</link>
+
+<html>
+
+<head>
+    <h1>Your Personalised Song</h1>
+</head>
+
+    <body>
+
+        <br>
+        {%if prediction%}
+        <form action = "./result" method = "POST">
+          <button type = "show"> Show</button>
+        </form>
+        {% endif %}
+
+        {% for line in lyrics %}
+        <br>{{line}}
+        {% endfor %}
+
+      </body>
+</html>

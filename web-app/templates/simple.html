@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<link href="static/simple.css" rel="stylesheet" type="text/css"</link>
+
+<html>
+
+<div class="image">
+	<p class="header">Lyrics Generator</p>
+</div>
+
+    <body>
+
+        <div class="gray-block-1">
+            <div class="block-1">
+                <h2>Instructions</h2>
+                <p>Pick an artist and the number of songs from the artist which will be used to train a sequence-to-sequence
+                language generation neural network. After the lyrics from the songs have been retrieved, enter the number of lines you
+                wish to predict and click 'Predict'.</p>
+            </div>
+            <div class="block-2">
+                <form action = "./artist" method = "POST">
+                  <input type="text" placeholder="Artist name" name="artist" />
+                  <input type="text" placeholder="Number of songs" name="number" />
+                  <div class="submit-button">
+                    <button type = "submit"> Submit</button>
+                  </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="content" class="gray-block-2">
+            {% if is_post %}
+
+                {% if train %}
+
+                    {% for title in titles %}
+                    <p>{{title}}</p>
+                    {% endfor %}
+
+                    <div class="block-3">
+                        <form action = "./train" method = "POST">
+                            <div class="input-block-3">
+                                <input type = "text" placeholder="Number of lines" name = "lines" />
+                            </div>
+                            <div class="submit-button-2">
+                                <button type = "submit"> Predict</button>
+                            </div>
+                        </form>
+                    </div>
+
+                {% else %}
+                    API calls reached. Try again later.
+
+                {% endif %}
+
+            {% endif %}
+        </div>
+
+      </body>
+</html>
