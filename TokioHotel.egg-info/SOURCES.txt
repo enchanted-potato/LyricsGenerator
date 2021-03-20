@@ -1,8 +1,0 @@
-setup.py
-TokioHotel.egg-info/PKG-INFO
-TokioHotel.egg-info/SOURCES.txt
-TokioHotel.egg-info/dependency_links.txt
-TokioHotel.egg-info/top_level.txt
-src/__init__.py
-src/get_lyrics.py
-src/train.py

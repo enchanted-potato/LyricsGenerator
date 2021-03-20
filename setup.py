@@ -1,10 +1,10 @@
 from setuptools import setup
 
 setup(
-    name='TokioHotel',
+    name='LyricsGenerator',
     version='1',
     packages=['src'],
-    url='https://github.com/enchanted-potato/TokioHotel',
+    url='https://github.com/enchanted-potato/LyricsGenerator',
     license='',
     author='kristia.karakatsani',
     author_email='kr.karakatsani@gmail.com',
