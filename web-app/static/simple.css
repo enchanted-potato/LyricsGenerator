@@ -1,6 +1,6 @@
 body {
   text-indent: 8px;
-  font-size: 16px;
+  font-size: 18px;
   color: white;
   font-family: sans-serif;
   background-color:#242121;
@@ -36,22 +36,34 @@ body {
 .block-1{
     flex: 1;
     padding: 20px;
-    text-align: center;
+    text-align: left;
+}
+
+ol li{
+    margin: 8px;
+    padding: 10px;
 }
 
 .block-2 {
-    flex: 1;
-    padding: 20px;
+    display:flex;
+    padding: 5%;
+    padding-top: 5%;
     text-align: center;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
 }
 
+
 input[type=text] {
-  padding: 10px;
-  margin:5px 5px;
+  flex: 1;
+  padding: 15px;
+  margin:8px 15px;
   border: 2px solid #eee;
   box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
   border-radius:10px;
-  width:60%;
+  width:80%;
+  font-size: 16px
 }
 
 input[type=text]:hover {
@@ -61,7 +73,7 @@ input[type=text]:hover {
 button {
   appearance:none;
   -webkit-appearance:none;
-  padding:10px;
+  padding:15px;
   margin:5px 5px;
   border:none;
   background-color:#3F51B5;
@@ -69,6 +81,7 @@ button {
   font-weight:600;
   border-radius:10px;
   width:30%;
+  font-size: 16px
 }
 
 button:hover {
@@ -97,4 +110,38 @@ gray-block-2{
 .submit-button-2 {
   width:30%;
   margin: 0 auto;
+}
+
+.loader {
+  display: none;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.loading {
+  border: 16px solid #ccc;
+  width: 160px;
+  height: 160px;
+  border-radius: 70%;
+  border-top-color: #16d6f7;
+  border-left-color: #16d6f7;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
