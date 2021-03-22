@@ -1,7 +1,7 @@
 import lyricsgenius as lg
 
 
-def get_lyrics(artist, max_no_songs, path_to_txt="C:/Users/kristia.karakatsani/PycharmProjects/TokioHotel/Data/lyrics_new.txt",
+def get_lyrics(artist, max_no_songs, path_to_txt="C:/Users/kristia.karakatsani/PycharmProjects/LyricsGenerator/Data/lyrics_new.txt",
                excluded_terms=["(Remix)", "(Live)"],skip_non_songs=True, remove_section_headers=True):
 
     assert(isinstance(artist, str))
