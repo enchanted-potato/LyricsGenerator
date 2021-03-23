@@ -112,21 +112,23 @@ gray-block-2{
   margin: 0 auto;
 }
 
+
+
+
 .loader {
   display: none;
-  top: 50%;
-  left: 50%;
+  top: 80%;
+  left: 45%;
   position: absolute;
-  transform: translate(-50%, -50%);
 }
 
 .loading {
-  border: 16px solid #ccc;
+  border: 25px solid #ccc;
   width: 160px;
   height: 160px;
   border-radius: 70%;
-  border-top-color: #16d6f7;
-  border-left-color: #16d6f7;
+  border-top-color: #3F51B5;
+  border-left-color: #3F51B5;
   -webkit-animation: spin 2s linear infinite; /* Safari */
   animation: spin 2s linear infinite;
 }
