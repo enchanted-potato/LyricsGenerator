@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
 header {
+    font-family: 'Roboto Condensed', sans-serif;
 	color: white;
 	padding-right: 30px;
 	text-align: center;
@@ -9,8 +9,8 @@ header {
     overflow-wrap: break-word;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
 body {
+  font-family: 'Roboto Condensed', sans-serif;
   line-height: 65px;
   font-size: 32px;
   text-align: center;
