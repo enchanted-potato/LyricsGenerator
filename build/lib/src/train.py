@@ -3,8 +3,9 @@ from builtins import range, input
 
 import os
 import numpy as np
+import pickle
 
-from keras.models import Model
+from keras.models import Model, model_from_json
 from keras.layers import Dense, Embedding, Input, LSTM
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
@@ -21,17 +22,18 @@ except:
 
 class Model_NN(object):
 
-    def __init__(self, configurations, data_path, glove_path):
+    def __init__(self, configurations, lyrics_path, glove_path, data_path):
 
         for attr in configurations.keys():
             setattr(self, attr, configurations[attr])
 
-        self.data_path = data_path
+        self.lyrics_path = lyrics_path
         self.glove_path = glove_path
+        self.data_path = data_path
 
     def load_lyrics(self):
         data = []
-        for line in open(self.data_path, encoding='utf8'):
+        for line in open(self.lyrics_path, encoding='utf8'):
           line = line.rstrip()
           if line!='' and line!='<|endoftext|>':
             data.append(line)
@@ -58,7 +60,7 @@ class Model_NN(object):
 
     def clean_text(self):
 
-        for line in open(self.data_path, encoding='utf8'):
+        for line in open(self.lyrics_path, encoding='utf8'):
             line = line.rstrip()
             if not line:
                 continue
@@ -68,7 +70,7 @@ class Model_NN(object):
         # load in the data
         input_texts = []
         target_texts = []
-        for line in open(self.data_path, encoding='utf8'):
+        for line in open(self.lyrics_path, encoding='utf8'):
             if line != '' and '<|endoftext|>' not in line:
                 line = line.rstrip()
                 if not line:
@@ -103,6 +105,14 @@ class Model_NN(object):
         print('Found %s unique tokens.' % len(word2idx))
         assert('<sos>' in word2idx)
         assert('<eos>' in word2idx)
+
+        try:
+            word2idx_file = open(self.data_path + '/word2idx.pickle', 'wb')
+            pickle.dump(word2idx, word2idx_file)
+            word2idx_file.close()
+
+        except:
+            print("Could not save word2idx")
 
 
         # pad sequences so that we get a N x T matrix
@@ -143,7 +153,7 @@ class Model_NN(object):
         # during prediction
         self.idx2word = {v: k for k, v in self.word2idx.items()}
 
-        return
+        return max_sequence_length
 
 
     def custom_embedding_layer(self):
@@ -208,21 +218,55 @@ class Model_NN(object):
         output2 = self.dense(x)
         self.sampling_model = Model([input2, self.initial_h, self.initial_c], [output2, h, c])
 
+        # serialize model to JSON
+        model_json = self.sampling_model.to_json()
+        with open(self.data_path + "/model.json", "w") as json_file:
+            json_file.write(model_json)
 
-    def sample_line(self):
+        # serialize weights to HDF5
+        self.sampling_model.save_weights(self.data_path + "/model.h5")
+        print("Saved model to disk")
+
+        return
+
+    @staticmethod
+    def sample_line(config, max_sequence_length):
+
+        data_path = config['paths']['root_path'] + config['paths']['data_path']
+
+        # load the model from pickle file
+        json_file = open(data_path + '/model.json', 'r')
+        loaded_model_json = json_file.read()
+        json_file.close()
+        sampling_model = model_from_json(loaded_model_json)
+
+        # load weights into new model
+        sampling_model.load_weights(data_path + '/model.h5')
+        print("Loaded model from disk")
+
+        # from config
+        LATENT_DIM = config['model_config']['LATENT_DIM']
+        max_sequence_length = max_sequence_length
+
+        # load word2idx dictionary
+        with open(data_path + '/word2idx.pickle', 'rb') as handle:
+            word2idx = pickle.load(handle)
+
+        idx2word = {v: k for k, v in word2idx.items()}
+
         # initial inputs
-        np_input = np.array([[self.word2idx['<sos>']]]) # 1x1 input with just <sos>
-        h = np.zeros((1, self.LATENT_DIM)) # same as what we used in training for consistency
-        c = np.zeros((1, self.LATENT_DIM)) # same as what we used in training for consistency
+        np_input = np.array([[word2idx['<sos>']]]) # 1x1 input with just <sos>
+        h = np.zeros((1, LATENT_DIM)) # same as what we used in training for consistency
+        c = np.zeros((1, LATENT_DIM)) # same as what we used in training for consistency
 
         # so we know when to quit
-        eos = self.word2idx['<eos>']
+        eos = word2idx['<eos>']
 
         # store the output here
         output_sentence = []
 
-        for _ in range(self.max_sequence_length):
-            o, h, c = self.sampling_model.predict([np_input, h, c]) # o is a list of word probabilities for the next word
+        for _ in range(max_sequence_length):
+            o, h, c = sampling_model.predict([np_input, h, c]) # o is a list of word probabilities for the next word
 
             # print("o.shape:", o.shape, o[0,0,:10])
             # idx = np.argmax(o[0,0])
@@ -236,21 +280,21 @@ class Model_NN(object):
                 break
 
             # accuulate output
-            output_sentence.append(self.idx2word.get(idx, '<WTF %s>' % idx)) # if the index is not in dictionary you get WTF
+            output_sentence.append(idx2word.get(idx, '<WTF %s>' % idx)) # if the index is not in dictionary you get WTF
 
             # make the next input into model
             np_input[0, 0] = idx
 
         return ' '.join(output_sentence)
 
-
-    def generate_lyrics(self, lines):
+    @staticmethod
+    def generate_lyrics(lines, config, max_sequence_length):
 
         print('Generating predictions...')
 
         predictions = []
         for _ in range(lines):
-            predictions.append(self.sample_line())
+            predictions.append(Model_NN.sample_line(config, max_sequence_length))
 
         print(predictions)
 

@@ -21,5 +21,25 @@
         <br>{{line}}
         {% endfor %}
 
+        <form action = "./result" method = "POST">
+            <div class="input-block-1">
+                <input type = "text" placeholder="Number of lines" name = "lines" />
+            </div>
+            <div class="submit-button-1">
+                <button type = "submit" onclick="spinner()"> Predict again</button>
+            </div>
+
+            {% for line in lyrics_new %}
+            <br>{{line}}
+            {% endfor %}
+
       </body>
+
+<script type="text/javascript">
+    function spinner() {
+        document.getElementsByClassName("loader")[0].style.display = "block";
+    }
+</script>
+
+
 </html>
