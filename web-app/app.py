@@ -45,7 +45,7 @@ def insert_text():
 @app.route('/train', methods=['POST'])
 def train():
     model_obj = Model_NN(config['model_config'],
-                         root_dir + config['paths']['data_path'] + '/lyrics_new.txt',
+                         root_dir + config['paths']['lyrics_path'],
                          root_dir + config['paths']['glove_path'])
 
     model_obj.load_glove()

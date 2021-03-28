@@ -21,17 +21,17 @@ except:
 
 class Model_NN(object):
 
-    def __init__(self, configurations, data_path, glove_path):
+    def __init__(self, configurations, lyrics_path, glove_path):
 
         for attr in configurations.keys():
             setattr(self, attr, configurations[attr])
 
-        self.data_path = data_path
+        self.lyrics_path = lyrics_path
         self.glove_path = glove_path
 
     def load_lyrics(self):
         data = []
-        for line in open(self.data_path, encoding='utf8'):
+        for line in open(self.lyrics_path, encoding='utf8'):
           line = line.rstrip()
           if line!='' and line!='<|endoftext|>':
             data.append(line)
@@ -58,7 +58,7 @@ class Model_NN(object):
 
     def clean_text(self):
 
-        for line in open(self.data_path, encoding='utf8'):
+        for line in open(self.lyrics_path, encoding='utf8'):
             line = line.rstrip()
             if not line:
                 continue
@@ -68,7 +68,7 @@ class Model_NN(object):
         # load in the data
         input_texts = []
         target_texts = []
-        for line in open(self.data_path, encoding='utf8'):
+        for line in open(self.lyrics_path, encoding='utf8'):
             if line != '' and '<|endoftext|>' not in line:
                 line = line.rstrip()
                 if not line:
