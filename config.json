@@ -1,6 +1,6 @@
 {
 	"paths": {
-		"root_path": "/Users/kristiakarakatsani/PycharmProjects/LyricsGenerator",
+		"root_path": "/Users/kristia.karakatsani/Projects/LyricsGenerator",
 		"data_path": "/Data",
 		"glove_path": "/Data/glove.6B.50d.txt",
 		"lyrics_path": "/Data/lyrics_new.txt"

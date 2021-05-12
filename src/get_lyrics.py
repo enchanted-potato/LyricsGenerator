@@ -19,7 +19,7 @@ def get_lyrics(artist, max_no_songs, path_to_txt="C:/Users/kristia.karakatsani/P
         lyrics = [song.lyrics for song in songs]
         total_no_songs = len(lyrics)
         try:
-            file = open(path_to_txt, 'w', encoding='utf-8')
+            file = open(path_to_txt, 'w+', encoding='utf-8')
             file.write("\n\n<|endoftext|>\n\n".join(lyrics))
             print(f"Saved lyrics")
             return titles, lyrics, total_no_songs
