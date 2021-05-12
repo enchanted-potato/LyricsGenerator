@@ -68,6 +68,8 @@ def train():
                                                             session['max_sequence_length']))
 
     session['predictions'] = predictions
+    with open(root_dir + config['paths']['data_path'] + "/predictions.txt", "w") as output:
+        output.write(str(predictions))
 
     if len(predictions)>0:
         predicted=True
@@ -89,11 +91,19 @@ def predict_extra():
 
         no_lines = int(request.form.get("lines"))
 
-        lyrics_new = capitalise_list(Model_NN.generate_lyrics(no_lines,
-                                                              config,
-                                                              session['max_sequence_length']))
+        # lyrics = session.get('predictions', None)
+        # print(len(lyrics))
 
-    return render_template('result.html', lyrics = lyrics_new)
+        lyrics_new = (capitalise_list(Model_NN.generate_lyrics(no_lines,
+                                                              config,
+                                                              session['max_sequence_length'])))
+
+        if len(lyrics_new) > 0:
+            predicted = True
+        else:
+            predicted = False
+
+    return render_template('result.html', new_prediction = predicted, lyrics = lyrics_new)
 
 
 
@@ -103,4 +113,3 @@ if __name__ == "__main__":
 
     root_dir = config['paths']['root_path']
     app.run(debug=True)
-

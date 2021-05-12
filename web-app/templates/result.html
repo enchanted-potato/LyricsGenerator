@@ -10,7 +10,6 @@
 
     <body>
 
-        <br>
         {%if prediction%}
         <form action = "./result" method = "POST">
           <button type = "show"> Show</button>
@@ -31,11 +30,13 @@
             <div class="loader">
               <div class="loading"></div>
             </div>
+        </form>
 
+        {%if new_prediction%}
             {% for line in lyrics_new %}
             <br>{{line}}
             {% endfor %}
-        </form>
+        {% endif %}
 
 
       </body>
