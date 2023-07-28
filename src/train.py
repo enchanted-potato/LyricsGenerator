@@ -7,7 +7,7 @@ import numpy as np
 from keras.models import Model
 from keras.layers import Dense, Embedding, Input, LSTM
 from keras.preprocessing.text import Tokenizer
-from keras.preprocessing.sequence import pad_sequences
+from keras_preprocessing.sequence import pad_sequences
 from keras.optimizers import Adam, SGD
 
 try:

@@ -1,7 +1,7 @@
 import lyricsgenius as lg
 
 
-def get_lyrics(artist, max_no_songs, path_to_txt="C:/Users/kristia.karakatsani/PycharmProjects/LyricsGenerator/Data/lyrics_new.txt",
+def get_lyrics(artist, max_no_songs, path_to_txt="/Users/kristiakarakatsani/Repos/LyricsGenerator/Data/lyrics_new.txt",
                excluded_terms=["(Remix)", "(Live)"],skip_non_songs=True, remove_section_headers=True):
 
     assert(isinstance(artist, str))
@@ -11,7 +11,8 @@ def get_lyrics(artist, max_no_songs, path_to_txt="C:/Users/kristia.karakatsani/P
     genius = lg.Genius('fJ8UODl_rAGEKCKP-Xpy9IOj0sYLKxXjuZMPGzolumJmsw_mqiflsWFREcWjsWEE',
                        skip_non_songs = skip_non_songs,
                        excluded_terms = excluded_terms,
-                       remove_section_headers = remove_section_headers
+                       remove_section_headers = remove_section_headers,
+                       timeout=20
     )
     try:
         songs = (genius.search_artist(artist, max_songs=int(max_no_songs), sort='popularity')).songs
