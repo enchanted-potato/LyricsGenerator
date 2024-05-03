@@ -14,7 +14,6 @@ if __name__ == '__main__':
 
     root_dir = config['paths']['root_path']
 
-
     # INSTANTIATE GENERIC READ OBJECT ===============================================================
 
     model_obj = Model_NN(config['model_config'],
