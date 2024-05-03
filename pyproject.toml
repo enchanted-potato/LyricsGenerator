@@ -12,6 +12,11 @@ pandas = "^2.2.2"
 tensorflow = "^2.16.1"
 flask = "^3.0.3"
 
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+pytest = "^7.3.1"
+isort = "^5.12.0"
+
 [build-system]
 requires = ["wheel", "setuptools", "attrs>=17.1"]
 build-backend = "setuptools.build_meta"
