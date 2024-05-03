@@ -1,12 +1,11 @@
 import lyricsgenius as lg
 
 
-def get_lyrics(artist, max_no_songs, path_to_txt="/Users/kristiakarakatsani/PycharmProjects/LyricsGenerator/Data/lyrics_new.txt",
+def get_lyrics(artist, max_no_songs, path_to_txt="/Data/lyrics_new.txt",
                excluded_terms=["(Remix)", "(Live)"],skip_non_songs=True, remove_section_headers=True):
 
     assert(isinstance(artist, str))
     assert(isinstance(path_to_txt, str))
-
 
     genius = lg.Genius('fJ8UODl_rAGEKCKP-Xpy9IOj0sYLKxXjuZMPGzolumJmsw_mqiflsWFREcWjsWEE',
                        skip_non_songs = skip_non_songs,
@@ -23,8 +22,8 @@ def get_lyrics(artist, max_no_songs, path_to_txt="/Users/kristiakarakatsani/Pych
             file.write("\n\n<|endoftext|>\n\n".join(lyrics))
             print(f"Saved lyrics")
             return titles, lyrics, total_no_songs
-        except:
-            print("Found lyrics but did not save text")
+        except e:
+            print("Found lyrics but did not save text", e)
 
     except:
         print("Failed")
@@ -32,9 +31,6 @@ def get_lyrics(artist, max_no_songs, path_to_txt="/Users/kristiakarakatsani/Pych
         lyrics = None
         total_no_songs =0
         return titles, lyrics, total_no_songs
-
-
-
 
 def capitalise_list(text_list):
 

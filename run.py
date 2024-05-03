@@ -9,7 +9,7 @@ if __name__ == '__main__':
     # LOAD CONFIGURATION ============================================================================
 
     config_path = os.path.dirname(os.path.dirname(__file__))
-    with open(os.path.join(config_path, 'config.json')) as jf:
+    with open(os.path.join(config_path, 'LyricsGenerator/config.json')) as jf:
         config = json.load(jf)
 
     root_dir = config['paths']['root_path']

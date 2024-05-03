@@ -29,7 +29,7 @@ def insert_text():
         try:
             titles, lyrics, no_of_songs = get_lyrics(artist = artist_name,
                                                      max_no_songs = number_songs,
-                                                     path_to_txt="/Users/kristiakarakatsani/PycharmProjects/LyricsGenerator/Data/lyrics_new.txt")
+                                                     path_to_txt=root_dir + "/Data/lyrics_new.txt")
             train = True
 
 
@@ -87,3 +87,4 @@ def main():
 if __name__ == "__main__":
     main()
 
+dpoxRE8h9d6S
