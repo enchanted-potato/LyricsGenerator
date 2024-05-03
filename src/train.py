@@ -6,7 +6,7 @@ import numpy as np
 
 from keras.models import Model
 from keras.layers import Dense, Embedding, Input, LSTM
-from keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 from keras.optimizers import Adam, SGD
 
@@ -178,7 +178,7 @@ class Model_NN(object):
         model.compile(
           loss='categorical_crossentropy',
           # optimizer='rmsprop',
-          optimizer=Adam(lr=0.01),
+          optimizer=Adam(learning_rate=0.01),
           # optimizer=SGD(lr=0.01, momentum=0.9),
           metrics=['accuracy']
         )
