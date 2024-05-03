@@ -3,22 +3,22 @@ import os
 
 from src.train import Model_NN
 
-
-if __name__ == '__main__':
-
+if __name__ == "__main__":
     # LOAD CONFIGURATION ============================================================================
 
     config_path = os.path.dirname(os.path.dirname(__file__))
-    with open(os.path.join(config_path, 'LyricsGenerator/config.json')) as jf:
+    with open(os.path.join(config_path, "LyricsGenerator/config.json")) as jf:
         config = json.load(jf)
 
-    root_dir = config['paths']['root_path']
+    root_dir = config["paths"]["root_path"]
 
     # INSTANTIATE GENERIC READ OBJECT ===============================================================
 
-    model_obj = Model_NN(config['model_config'],
-                         root_dir + config['paths']['data_path'] + '/lyrics_new.txt',
-                         root_dir + config['paths']['glove_path'])
+    model_obj = Model_NN(
+        config["model_config"],
+        root_dir + config["paths"]["data_path"] + "/lyrics_new.txt",
+        root_dir + config["paths"]["glove_path"],
+    )
 
     model_obj.load_glove()
 
