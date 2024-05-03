@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "lyricsgenerator"
+version = "0.1.0"
+description = "Lyrics Generator App"
+authors = ["enchanted-potato <kr.karakatsani@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+keras = "^3.3.3"
+pandas = "^2.2.2"
+tensorflow = "^2.16.1"
+flask = "^3.0.3"
+
+[build-system]
+requires = ["wheel", "setuptools", "attrs>=17.1"]
+build-backend = "setuptools.build_meta"
