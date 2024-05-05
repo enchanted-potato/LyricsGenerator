@@ -36,11 +36,12 @@ def insert_text():
             )
             train = True
 
-        except:
+        except e:
+            print(e)
             train = False
             titles = []
             no_of_songs = None
-    print(train)
+    print("Train outcome:", train)
     return render_template(
         "simple.html", titles=titles, no_songs=no_of_songs, is_post=True, train=train
     )
