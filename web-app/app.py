@@ -3,8 +3,8 @@ import os
 
 from flask import Flask, render_template, request, session
 
-from src.get_lyrics import capitalise_list, get_lyrics
-from src.train import Model_NN
+from lyricsgenerator.get_lyrics import capitalise_list, get_lyrics
+from lyricsgenerator.train import Model_NN
 
 config_path = os.path.dirname(os.path.dirname(__file__))
 with open(os.path.join(config_path, "config.json")) as jf:
@@ -36,7 +36,7 @@ def insert_text():
             )
             train = True
 
-        except e:
+        except Exception as e:
             print(e)
             train = False
             titles = []

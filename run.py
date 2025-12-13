@@ -1,7 +1,7 @@
 import json
 import os
 
-from src.train import Model_NN
+from lyricsgenerator.train import Model_NN
 
 if __name__ == "__main__":
     # LOAD CONFIGURATION ============================================================================
