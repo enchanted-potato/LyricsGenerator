@@ -1,13 +1,21 @@
 import json
 import os
+import sys
+
+# Add project root to Python path so we can import lyricsgenerator
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
 
 from lyricsgenerator.train import Model_NN
 
 if __name__ == "__main__":
     # LOAD CONFIGURATION ============================================================================
 
-    config_path = os.path.dirname(os.path.dirname(__file__))
-    with open(os.path.join(config_path, "LyricsGenerator/config.json")) as jf:
+    # Get project root directory (parent of scripts directory)
+    config_path = os.path.join(project_root, "config.json")
+    
+    with open(config_path) as jf:
         config = json.load(jf)
 
     root_dir = config["paths"]["root_path"]
@@ -30,5 +38,7 @@ if __name__ == "__main__":
 
     model_obj.train_model()
 
-    predictions = model_obj.predict(4)
+    model_obj.predict_model()
+
+    predictions = model_obj.generate_lyrics(4)
     print(predictions)

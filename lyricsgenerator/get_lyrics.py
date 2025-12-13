@@ -1,4 +1,10 @@
+import os
+
+from dotenv import load_dotenv
 import lyricsgenius as lg
+
+# Load environment variables from .env file
+load_dotenv()
 
 
 def _save_lyrics_to_file(lyrics, path_to_txt):
@@ -20,8 +26,15 @@ def get_lyrics(
     assert isinstance(artist, str)
     assert isinstance(path_to_txt, str)
 
+    api_key = os.getenv("GENIUS_API_KEY")
+    if not api_key:
+        raise ValueError(
+            "GENIUS_API_KEY environment variable is not set. "
+            "Please set it in your environment or .env file."
+        )
+
     genius = lg.Genius(
-        "fJ8UODl_rAGEKCKP-Xpy9IOj0sYLKxXjuZMPGzolumJmsw_mqiflsWFREcWjsWEE",
+        api_key,
         skip_non_songs=skip_non_songs,
         excluded_terms=excluded_terms,
         remove_section_headers=remove_section_headers,

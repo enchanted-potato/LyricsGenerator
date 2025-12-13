@@ -1,7 +1,11 @@
 import json
 import os
+import secrets
 
+from dotenv import load_dotenv
 from flask import Flask, render_template, request, session
+
+load_dotenv()
 
 from lyricsgenerator.get_lyrics import capitalise_list, get_lyrics
 from lyricsgenerator.train import Model_NN
@@ -14,7 +18,9 @@ root_dir = config["paths"]["root_path"]
 
 app = Flask(__name__)
 
-app.secret_key = "hello"
+# Get secret key from environment variable, or generate a random one
+# In production, always set FLASK_SECRET_KEY in your environment
+app.secret_key = os.getenv("FLASK_SECRET_KEY") or secrets.token_hex(32)
 
 
 @app.route("/")

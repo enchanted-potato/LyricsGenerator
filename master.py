@@ -8,19 +8,19 @@ from builtins import input, range
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from keras.layers import LSTM, Dense, Embedding, Input
-from keras.models import Model
-from keras.optimizers import SGD, Adam
-from keras.preprocessing.sequence import pad_sequences
-from keras.preprocessing.text import Tokenizer
+from tensorflow.keras.layers import LSTM, Dense, Embedding, Input
+from tensorflow.keras.models import Model
+from tensorflow.keras.optimizers import SGD, Adam
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.preprocessing.text import Tokenizer
 
 try:
-    import keras.backend as K
+    import tensorflow.keras.backend as K
 
     if len(K.tensorflow_backend._get_available_gpus()) > 0:
-        from keras.layers import CuDNNGRU as GRU
-        from keras.layers import CuDNNLSTM as LSTM
-except:
+        from tensorflow.keras.layers import CuDNNGRU as GRU
+        from tensorflow.keras.layers import CuDNNLSTM as LSTM
+except (ImportError, AttributeError):
     pass
 
 # LOAD DATA & CONFIGURATIONS -------------------------------------------------------------------------------------------
@@ -149,7 +149,7 @@ model = Model([input_, initial_h, initial_c], output)
 model.compile(
     loss="categorical_crossentropy",
     # optimizer='rmsprop',
-    optimizer=Adam(lr=0.01),
+    optimizer=Adam(learning_rate=0.01),
     # optimizer=SGD(lr=0.01, momentum=0.9),
     metrics=["accuracy"],
 )
