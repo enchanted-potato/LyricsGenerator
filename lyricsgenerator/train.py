@@ -4,19 +4,19 @@ import os
 from builtins import input, range
 
 import numpy as np
-from keras.layers import LSTM, Dense, Embedding, Input
-from keras.models import Model
-from keras.optimizers import SGD, Adam
-from keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.layers import LSTM, Dense, Embedding, Input
+from tensorflow.keras.models import Model
+from tensorflow.keras.optimizers import SGD, Adam
+from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.preprocessing.text import Tokenizer
 
 try:
-    import keras.backend as K
+    import tensorflow.keras.backend as K
 
     if len(K.tensorflow_backend._get_available_gpus()) > 0:
-        from keras.layers import CuDNNGRU as GRU
-        from keras.layers import CuDNNLSTM as LSTM
-except:
+        from tensorflow.keras.layers import CuDNNGRU as GRU
+        from tensorflow.keras.layers import CuDNNLSTM as LSTM
+except (ImportError, AttributeError):
     pass
 
 
