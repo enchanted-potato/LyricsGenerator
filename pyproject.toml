@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "Lyrics Generator App"
 authors = ["enchanted-potato <kr.karakatsani@gmail.com>"]
 readme = "README.md"
+packages = [{include = "lyricsgenerator"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -11,6 +12,7 @@ keras = "^3.3.3"
 pandas = "^2.2.2"
 tensorflow = "^2.16.1"
 flask = "^3.0.3"
+lyricsgenius = "^3.7.5"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"
@@ -18,5 +20,5 @@ pytest = "^7.3.1"
 isort = "^5.12.0"
 
 [build-system]
-requires = ["wheel", "setuptools", "attrs>=17.1"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
